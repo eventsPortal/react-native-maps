@@ -325,7 +325,8 @@ RCT_EXPORT_METHOD(pointForCoordinate:(nonnull NSNumber *)reactTag
 
 RCT_EXPORT_METHOD(coordinateForPoint:(nonnull NSNumber *)reactTag
                   point:(NSDictionary *)point
-                  withCallback:(RCTResponseSenderBlock)callback)
+                  resolver: (RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
 {
   CGPoint pt = CGPointMake(
                            [point[@"x"] doubleValue],
@@ -340,11 +341,11 @@ RCT_EXPORT_METHOD(coordinateForPoint:(nonnull NSNumber *)reactTag
       AIRGoogleMap *mapView = (AIRGoogleMap *)view;
 
       CLLocationCoordinate2D coordinate = [mapView.projection coordinateForPoint:pt];
-
-      callback(@[[NSNull null], @{
+      
+      resolve(@{
                 @"latitude": @(coordinate.latitude),
                 @"longitude": @(coordinate.longitude),
-                }]);
+                });
     }
   }];
 }
