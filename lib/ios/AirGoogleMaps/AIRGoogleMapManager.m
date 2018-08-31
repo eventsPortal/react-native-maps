@@ -298,7 +298,8 @@ RCT_EXPORT_METHOD(takeSnapshot:(nonnull NSNumber *)reactTag
 
 RCT_EXPORT_METHOD(pointForCoordinate:(nonnull NSNumber *)reactTag
                   coordinate:(NSDictionary *)coordinate
-                  withCallback:(RCTResponseSenderBlock)callback)
+                  resolver: (RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
 {
   CLLocationCoordinate2D coord =
   CLLocationCoordinate2DMake(
@@ -314,11 +315,11 @@ RCT_EXPORT_METHOD(pointForCoordinate:(nonnull NSNumber *)reactTag
       AIRGoogleMap *mapView = (AIRGoogleMap *)view;
 
       CGPoint touchPoint = [mapView.projection pointForCoordinate:coord];
-
-      callback(@[[NSNull null], @{
-                   @"x": @(touchPoint.x),
-                   @"y": @(touchPoint.y),
-                   }]);
+      
+      resolve(@{
+                @"x": @(touchPoint.x),
+                @"y": @(touchPoint.y),
+                });
     }
   }];
 }
