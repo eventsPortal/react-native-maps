@@ -37,11 +37,12 @@ public class AirMapManager extends ViewGroupManager<AirMapView> {
   private static final int FIT_TO_SUPPLIED_MARKERS = 6;
   private static final int FIT_TO_COORDINATES = 7;
   private static final int SET_MAP_BOUNDARIES = 8;
-  private static final int RESET_MAP_BOUNDARIES = 9;
   private static final int ANIMATE_TO_NAVIGATION = 9; 
   private static final int SET_INDOOR_ACTIVE_LEVEL_INDEX = 10;
   private static final int SET_CAMERA = 11;
   private static final int ANIMATE_CAMERA = 12;
+  private static final int RESET_MAP_BOUNDARIES = 13;
+
 
 
   private final Map<String, Integer> MAP_TYPES = MapBuilder.of(
@@ -340,12 +341,12 @@ public class AirMapManager extends ViewGroupManager<AirMapView> {
         view.setMapBoundaries(args.getMap(0), args.getMap(1));
         break;
 
-      case RESET_MAP_BOUNDARIES:
-        view.resetMapBoundaries();
-        break;
-
       case SET_INDOOR_ACTIVE_LEVEL_INDEX:
         view.setIndoorActiveLevelIndex(args.getInt(0));
+        break;
+
+      case RESET_MAP_BOUNDARIES:
+        view.resetMapBoundaries();
         break;
     }
   }
