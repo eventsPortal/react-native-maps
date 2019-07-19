@@ -342,6 +342,8 @@ public class AirMapManager extends ViewGroupManager<AirMapView> {
 
       case RESET_MAP_BOUNDARIES:
         view.resetMapBoundaries();
+        break;
+
       case SET_INDOOR_ACTIVE_LEVEL_INDEX:
         view.setIndoorActiveLevelIndex(args.getInt(0));
         break;
