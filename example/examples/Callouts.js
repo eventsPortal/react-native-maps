@@ -7,11 +7,12 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
-import MapView, { Marker, Callout, CalloutSubview, ProviderPropType } from 'react-native-maps';
-import CustomCallout from './CustomCallout';
-
-const { width, height } = Dimensions.get('window');
-const ASPECT_RATIO = width / height;
+import MapView, {
+  Marker,
+  Callout,
+  CalloutSubview,
+  ProviderPropType,
+} from 'react-native-maps';
 const LATITUDE = 37.78825;
 const LONGITUDE = -122.4324;
 const LATITUDE_DELTA = 0.0922;
@@ -52,15 +53,11 @@ class Callouts extends React.Component {
         {
           coordinate: {
             latitude: LATITUDE,
-            longitude: LONGITUDE - (SPACE / 2),
+            longitude: LONGITUDE - SPACE / 2,
           },
         },
       ],
-    };
-  }
-
-  show() {
-    this.marker1.showCallout();
+            longitude: LONGITUDE - SPACE / 2,
   }
 
   hide() {
@@ -78,77 +75,62 @@ class Callouts extends React.Component {
           zoomTapEnabled={false}
         >
           <Marker
-            ref={ref => { this.marker1 = ref; }}
+            ref={ref => {
+              this.marker1 = ref;
+            }}
             coordinate={markers[0].coordinate}
             title="This is a native view"
-            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation" // eslint-disable-line max-len
+            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation"
           />
-          <Marker
-            coordinate={markers[1].coordinate}
-          >
-            <Callout style={styles.plainView}>
-              <View>
-                <Text>This is a plain view</Text>
-              </View>
-            </Callout>
-          </Marker>
-          <Marker
-            coordinate={markers[2].coordinate}
-            calloutOffset={{ x: -8, y: 28 }}
-            calloutAnchor={{ x: 0.5, y: 0.4 }}
-            ref={ref => { this.marker2 = ref; }}
-          >
-            <Callout
-              alphaHitTest
-              tooltip onPress={(e) => {
-                if (e.nativeEvent.action === 'marker-inside-overlay-press' ||
-                  e.nativeEvent.action === 'callout-inside-press') {
+          <Marker coordinate={markers[1].coordinate}>
+            ref={ref => {
+              this.marker1 = ref;
+            }}
+            coordinate={markers[0].coordinate}
+            title="This is a native view"
+            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation"
+          />
+          <Marker coordinate={markers[1].coordinate}>
+                  e.nativeEvent.action === 'marker-inside-overlay-press' ||
+                  e.nativeEvent.action === 'callout-inside-press'
+                ) {
                   return;
                 }
 
                 Alert.alert('callout pressed');
-              }} style={styles.customView}
+              }}
+              style={styles.customView}
             >
-              <CustomCallout>
-                <Text>{`This is a custom callout bubble view ${this.state.cnt}`}</Text>
-                <CalloutSubview
-                  onPress={() => {
-                    this.setState({ cnt: this.state.cnt + 1 }, () => {
-                      this.marker2.redrawCallout();
-                    });
-                  }} style={[styles.calloutButton]}
-                >
-                  <Text>Click me</Text>
-                </CalloutSubview>
-              </CustomCallout>
-            </Callout>
-          </Marker>
-          <Marker
-            ref={ref => { this.marker4 = ref; }}
-            coordinate={markers[3].coordinate}
+            ref={ref => {
+              this.marker2 = ref;
+            }}
+          >
+            <Callout
+              alphaHitTest
+              tooltip
+              onPress={e => {
+                if (
+                  e.nativeEvent.action === 'marker-inside-overlay-press' ||
+                  e.nativeEvent.action === 'callout-inside-press'
+                ) {
             title="You can also open this callout"
-            description="by pressing on transparent area of custom callout" // eslint-disable-line max-len
+            description="by pressing on transparent area of custom callout"
           />
         </MapView>
-        <View style={styles.buttonContainer}>
-          <View style={styles.bubble}>
-            <Text>Tap on markers to see different callouts</Text>
-          </View>
-        </View>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity onPress={() => this.show()} style={[styles.bubble, styles.button]}>
-            <Text>Show</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => this.hide()} style={[styles.bubble, styles.button]}>
+              }}
+              style={styles.customView}
+            >
+              <CustomCallout>
+                <Text>{`This is a custom callout bubble view ${
+                  this.state.cnt
+                }`}</Text>
+            style={[styles.bubble, styles.button]}
+          >
             <Text>Hide</Text>
           </TouchableOpacity>
         </View>
-      </View>
-    );
-  }
-}
-
-Callouts.propTypes = {
+                  }}
+                  style={[styles.calloutButton]}
   provider: ProviderPropType,
 };
 
@@ -156,19 +138,12 @@ const styles = StyleSheet.create({
   customView: {
     width: 140,
     height: 140,
-  },
-  plainView: {
-    width: 60,
-  },
-  container: {
-    ...StyleSheet.absoluteFillObject,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
-  map: {
-    ...StyleSheet.absoluteFillObject,
-  },
-  bubble: {
+            ref={ref => {
+              this.marker4 = ref;
+            }}
+            coordinate={markers[3].coordinate}
+            title="You can also open this callout"
+            description="by pressing on transparent area of custom callout"
     flex: 1,
     backgroundColor: 'rgba(255,255,255,0.7)',
     paddingHorizontal: 18,
@@ -177,23 +152,16 @@ const styles = StyleSheet.create({
   },
   latlng: {
     width: 200,
-    alignItems: 'stretch',
-  },
-  button: {
-    width: 80,
-    paddingHorizontal: 12,
-    alignItems: 'center',
-    marginHorizontal: 10,
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    marginVertical: 20,
-    backgroundColor: 'transparent',
-  },
-  calloutButton: {
-    width: 'auto',
-    backgroundColor: 'rgba(255,255,255,0.7)',
-    paddingHorizontal: 6,
+          <TouchableOpacity
+            onPress={() => this.show()}
+            style={[styles.bubble, styles.button]}
+          >
+            <Text>Show</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => this.hide()}
+            style={[styles.bubble, styles.button]}
+          >
     paddingVertical: 6,
     borderRadius: 12,
     alignItems: 'center',

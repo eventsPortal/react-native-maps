@@ -8,11 +8,11 @@ import {
   Platform,
 } from 'react-native';
 
-import MapView, { ProviderPropType, Marker, AnimatedRegion } from 'react-native-maps';
-
-const screen = Dimensions.get('window');
-
-const ASPECT_RATIO = screen.width / screen.height;
+import MapView, {
+  ProviderPropType,
+  Marker,
+  AnimatedRegion,
+} from 'react-native-maps';
 const LATITUDE = 37.78825;
 const LONGITUDE = -122.4324;
 const LATITUDE_DELTA = 0.0922;
@@ -33,17 +33,12 @@ class AnimatedMarkers extends React.Component {
   animate() {
     const { coordinate } = this.state;
     const newCoordinate = {
-      latitude: LATITUDE + ((Math.random() - 0.5) * (LATITUDE_DELTA / 2)),
-      longitude: LONGITUDE + ((Math.random() - 0.5) * (LONGITUDE_DELTA / 2)),
+      latitude: LATITUDE + (Math.random() - 0.5) * (LATITUDE_DELTA / 2),
+      longitude: LONGITUDE + (Math.random() - 0.5) * (LONGITUDE_DELTA / 2),
     };
 
-    if (Platform.OS === 'android') {
-      if (this.marker) {
-        this.marker._component.animateMarkerToCoordinate(newCoordinate, 500);
-      }
-    } else {
-      coordinate.timing(newCoordinate).start();
-    }
+      latitude: LATITUDE + (Math.random() - 0.5) * (LATITUDE_DELTA / 2),
+      longitude: LONGITUDE + (Math.random() - 0.5) * (LONGITUDE_DELTA / 2),
   }
 
   render() {
@@ -60,20 +55,18 @@ class AnimatedMarkers extends React.Component {
           }}
         >
           <Marker.Animated
-            ref={marker => { this.marker = marker; }}
+            ref={marker => {
+              this.marker = marker;
+            }}
             coordinate={this.state.coordinate}
           />
         </MapView>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             onPress={() => this.animate()}
-            style={[styles.bubble, styles.button]}
-          >
-            <Text>Animate</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    );
+            ref={marker => {
+              this.marker = marker;
+            }}
   }
 }
 
