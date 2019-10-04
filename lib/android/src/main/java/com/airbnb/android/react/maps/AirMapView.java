@@ -928,6 +928,11 @@ public class AirMapView extends MapView implements GoogleMap.InfoWindowAdapter,
     map.setLatLngBoundsForCameraTarget(bounds);
   }
 
+  public void resetMapBoundaries() {
+    if (map == null) return;
+    map.setLatLngBoundsForCameraTarget(null);
+  }
+
   // InfoWindowAdapter interface
 
   @Override
