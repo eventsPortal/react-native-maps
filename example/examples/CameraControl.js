@@ -1,54 +1,17 @@
 import React from 'react';
-import {
-  StyleSheet,
-  View,
-  TouchableOpacity,
-  Text,
-  Alert,
-} from 'react-native';
-
-import MapView, { ProviderPropType } from 'react-native-maps';
-
-const LATITUDE = 37.78825;
-const LONGITUDE = -122.4324;
-
-
-class CameraControl extends React.Component {
-  async getCamera() {
-    const camera = await this.map.getCamera();
-    Alert.alert(
-      'Current camera',
-      JSON.stringify(camera),
-      [
-        { text: 'OK' },
-      ],
-      { cancelable: true }
-    );
+import { StyleSheet, View, TouchableOpacity, Text, Alert } from 'react-native';
+      cancelable: true,
+    });
   }
 
   async setCamera() {
     const camera = await this.map.getCamera();
-    // Note that we do not have to pass a full camera object to setCamera().
-    // Similar to setState(), we can pass only the properties you like to change.
-    this.map.setCamera({
-      heading: camera.heading + 10,
-    });
-  }
-
-  async animateCamera() {
+class CameraControl extends React.Component {
+  async getCamera() {
     const camera = await this.map.getCamera();
-    camera.heading += 40;
-    camera.pitch += 10;
-    camera.altitude += 1000;
-    camera.zoom -= 1;
-    camera.center.latitude += 0.5;
-    this.map.animateCamera(camera, { duration: 2000 });
-  }
-
-  render() {
-    return (
-      <View style={styles.container}>
-        <MapView
+    Alert.alert('Current camera', JSON.stringify(camera), [{ text: 'OK' }], {
+      cancelable: true,
+    });
           provider={this.props.provider}
           ref={ref => {
             this.map = ref;
@@ -94,7 +57,6 @@ CameraControl.propTypes = {
   provider: ProviderPropType,
 };
 
-
 const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
@@ -120,7 +82,3 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     marginVertical: 20,
     backgroundColor: 'transparent',
-  },
-});
-
-export default CameraControl;

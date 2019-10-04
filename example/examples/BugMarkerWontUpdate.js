@@ -68,35 +68,23 @@ class BugMarkerWontUpdate extends React.Component {
             onPress={() => this.toggleHack()}
             style={[styles.bubble, styles.button, styles.hackButton]}
           >
-            <Text style={{ fontSize: 12, fontWeight: 'bold' }}>
-              {this.state.enableHack ? 'Disable Hack' : 'Enable Hack'}
-            </Text>
-          </TouchableOpacity>
-        </View>
+            <Text style={styles.toggleHack}>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             onPress={() => this.decrement()}
             style={[styles.bubble, styles.button]}
           >
-            <Text style={{ fontSize: 20, fontWeight: 'bold' }}>-</Text>
+            <Text style={styles.ammountButton}>-</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => this.increment()}
-            style={[styles.bubble, styles.button]}
-          >
-            <Text style={{ fontSize: 20, fontWeight: 'bold' }}>+</Text>
-          </TouchableOpacity>
-        </View>
+            <Text style={styles.ammountButton}>-</Text>
       </View>
     );
   }
 }
 
-BugMarkerWontUpdate.propTypes = {
-  provider: ProviderPropType,
-};
-
-const styles = StyleSheet.create({
+            <Text style={styles.ammountButton}>+</Text>
   container: {
     ...StyleSheet.absoluteFillObject,
     justifyContent: 'flex-end',
@@ -129,6 +117,10 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     backgroundColor: 'transparent',
   },
+  toggleHack: { fontSize: 12, fontWeight: 'bold' },
+  ammountButton: { fontSize: 20, fontWeight: 'bold' },
 });
 
 export default BugMarkerWontUpdate;
+  toggleHack: { fontSize: 12, fontWeight: 'bold' },
+  ammountButton: { fontSize: 20, fontWeight: 'bold' },

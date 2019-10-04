@@ -55,17 +55,7 @@ class PolylineCreator extends React.Component {
       this.setState({
         editing: {
           ...editing,
-          coordinates: [
-            ...editing.coordinates,
-            e.nativeEvent.coordinate,
-          ],
-        },
-      });
-    }
-  }
-
-  render() {
-    return (
+          coordinates: [...editing.coordinates, e.nativeEvent.coordinate],
       <View style={styles.container}>
         <MapView
           provider={this.props.provider}
@@ -83,17 +73,13 @@ class PolylineCreator extends React.Component {
               strokeWidth={1}
             />
           ))}
-          {this.state.editing &&
+          {this.state.editing && (
             <Polyline
               key="editingPolyline"
               coordinates={this.state.editing.coordinates}
               strokeColor="#F00"
               fillColor="rgba(255,0,0,0.5)"
               strokeWidth={1}
-            />
-          }
-        </MapView>
-        <View style={styles.buttonContainer}>
           {this.state.editing && (
             <TouchableOpacity
               onPress={() => this.finish()}
@@ -102,11 +88,7 @@ class PolylineCreator extends React.Component {
               <Text>Finish</Text>
             </TouchableOpacity>
           )}
-        </View>
-      </View>
-    );
-  }
-}
+          )}
 
 PolylineCreator.propTypes = {
   provider: ProviderPropType,

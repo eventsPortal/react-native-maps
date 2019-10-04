@@ -25,6 +25,8 @@ RCT_EXPORT_MODULE()
 //  tapGestureRecognizer.cancelsTouchesInView = NO;
 //  [marker addGestureRecognizer:tapGestureRecognizer];
   marker.bridge = self.bridge;
+  marker.isAccessibilityElement = YES;
+  marker.accessibilityElementsHidden = NO;
   return marker;
 }
 
@@ -35,12 +37,14 @@ RCT_EXPORT_VIEW_PROPERTY(onPress, RCTBubblingEventBlock)
 RCT_REMAP_VIEW_PROPERTY(image, imageSrc, NSString)
 RCT_REMAP_VIEW_PROPERTY(icon, iconSrc, NSString)
 RCT_EXPORT_VIEW_PROPERTY(title, NSString)
+RCT_REMAP_VIEW_PROPERTY(testID, accessibilityIdentifier, NSString)
 RCT_REMAP_VIEW_PROPERTY(description, subtitle, NSString)
 RCT_EXPORT_VIEW_PROPERTY(pinColor, UIColor)
 RCT_EXPORT_VIEW_PROPERTY(anchor, CGPoint)
 RCT_EXPORT_VIEW_PROPERTY(calloutAnchor, CGPoint)
 RCT_EXPORT_VIEW_PROPERTY(zIndex, NSInteger)
 RCT_EXPORT_VIEW_PROPERTY(draggable, BOOL)
+RCT_EXPORT_VIEW_PROPERTY(flat, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(tracksViewChanges, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(tracksInfoWindowChanges, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(opacity, double)

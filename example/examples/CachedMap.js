@@ -18,11 +18,9 @@ class CachedMap extends React.Component {
   constructor(props) {
     super(props);
 
-    const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-    this.state = {
-      dataSource: ds.cloneWithRows(COUNTRIES),
-      cache: true,
-    };
+    const ds = new ListView.DataSource({
+      rowHasChanged: (r1, r2) => r1 !== r2,
+    });
   }
 
   toggleCache() {
@@ -38,47 +36,32 @@ class CachedMap extends React.Component {
 
   render() {
     const { width } = Dimensions.get('window');
-    const mapSize = width - (HORIZONTAL_PADDING * 2);
+    const mapSize = width - HORIZONTAL_PADDING * 2;
     return (
       <View style={styles.container}>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            onPress={() => this.toggleCache()}
-            style={[styles.bubble, styles.button]}
-          >
-            <Text style={styles.buttonText}>{this.state.cache ? 'Cached' : 'Not cached'}</Text>
+    const mapSize = width - HORIZONTAL_PADDING * 2;
+              {this.state.cache ? 'Cached' : 'Not cached'}
+            </Text>
           </TouchableOpacity>
         </View>
         <ListView
           dataSource={this.state.dataSource}
-          renderRow={(region) =>
-            <View
-              style={styles.item}
-            >
-              <Text>{region.name}</Text>
-              <MapView
-                provider={this.props.provider}
-                style={{
-                  width: mapSize,
-                  height: mapSize,
+          renderRow={region => (
+            <Text style={styles.buttonText}>
+              {this.state.cache ? 'Cached' : 'Not cached'}
+            </Text>
                 }}
                 initialRegion={region}
                 cacheEnabled={this.state.cache}
                 zoomEnabled
-                scrollingEnabled
-                loadingIndicatorColor="#666666"
-                loadingBackgroundColor="#eeeeee"
-              >
-                <Marker
-                  coordinate={region}
-                  centerOffset={{ x: -18, y: -60 }}
-                  anchor={{ x: 0.69, y: 1 }}
-                  image={flagImg}
+          renderRow={region => (
+            <View style={styles.item}>
                 />
               </MapView>
               <View style={styles.divider} />
             </View>
-          }
+          )}
         />
       </View>
     );
@@ -97,11 +80,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     paddingHorizontal: HORIZONTAL_PADDING,
     paddingVertical: VERTICAL_PADDING,
-  },
-  bubble: {
-    backgroundColor: 'rgba(0,128,255,1.0)',
-    paddingHorizontal: 18,
-    paddingVertical: 12,
+          )}
     borderRadius: 20,
   },
   button: {

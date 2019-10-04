@@ -1,23 +1,12 @@
 import React from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  Dimensions,
-} from 'react-native';
+import { StyleSheet, View, Text, Dimensions } from 'react-native';
 
-import MapView, { MAP_TYPES, PROVIDER_DEFAULT, ProviderPropType, UrlTile } from 'react-native-maps';
-
-const { width, height } = Dimensions.get('window');
-
-const ASPECT_RATIO = width / height;
-const LATITUDE = 37.78825;
-const LONGITUDE = -122.4324;
-const LATITUDE_DELTA = 0.0922;
-const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
-
-class CustomTiles extends React.Component {
-  constructor(props, context) {
+import MapView, {
+  MAP_TYPES,
+  PROVIDER_DEFAULT,
+  ProviderPropType,
+  UrlTile,
+} from 'react-native-maps';
     super(props, context);
 
     this.state = {
@@ -32,8 +21,9 @@ class CustomTiles extends React.Component {
 
   get mapType() {
     // MapKit does not support 'none' as a base map
-    return this.props.provider === PROVIDER_DEFAULT ?
-      MAP_TYPES.STANDARD : MAP_TYPES.NONE;
+    return this.props.provider === PROVIDER_DEFAULT
+      ? MAP_TYPES.STANDARD
+      : MAP_TYPES.NONE;
   }
 
   render() {
@@ -42,14 +32,9 @@ class CustomTiles extends React.Component {
       <View style={styles.container}>
         <MapView
           provider={this.props.provider}
-          mapType={this.mapType}
-          style={styles.map}
-          initialRegion={region}
-        >
-          <UrlTile
-            urlTemplate="http://c.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg"
-            zIndex={-1}
-          />
+    return this.props.provider === PROVIDER_DEFAULT
+      ? MAP_TYPES.STANDARD
+      : MAP_TYPES.NONE;
         </MapView>
         <View style={styles.buttonContainer}>
           <View style={styles.bubble}>

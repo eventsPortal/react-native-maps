@@ -1,17 +1,5 @@
 import React from 'react';
-import {
-  StyleSheet,
-  View,
-  Dimensions,
-} from 'react-native';
-
-import MapView, { ProviderPropType } from 'react-native-maps';
-import XMarksTheSpot from './CustomOverlayXMarksTheSpot';
-
-const { width, height } = Dimensions.get('window');
-const ASPECT_RATIO = width / height;
-const LATITUDE = 37.78825;
-const LONGITUDE = -122.4324;
+import { StyleSheet, View, Dimensions } from 'react-native';
 const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
@@ -29,7 +17,7 @@ class CustomOverlay extends React.Component {
       coordinates: [
         {
           longitude: -122.442753,
-          latitude: 37.798790,
+          latitude: 37.79879,
         },
         {
           longitude: -122.424728,
@@ -37,11 +25,7 @@ class CustomOverlay extends React.Component {
         },
         {
           longitude: -122.422497,
-          latitude: 37.790651,
-        },
-        {
-          longitude: -122.440693,
-          latitude: 37.788209,
+          latitude: 37.79879,
         },
       ],
       center: {

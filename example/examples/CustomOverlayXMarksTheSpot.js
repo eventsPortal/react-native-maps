@@ -19,15 +19,7 @@ class XMarksTheSpot extends React.Component {
         <Polyline
           coordinates={[this.props.coordinates[1], this.props.coordinates[3]]}
         />
-        <Marker
-          coordinate={this.props.center}
-        />
-      </View>
-    );
-  }
-}
-
-XMarksTheSpot.propTypes = {
+        <Marker coordinate={this.props.center} />
   coordinates: PropTypes.array,
   center: PropTypes.object,
   zIndex: PropTypes.number,

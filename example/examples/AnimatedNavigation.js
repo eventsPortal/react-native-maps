@@ -1,61 +1,39 @@
 import React, { Component } from 'react';
 
-import {
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  Text,
-} from 'react-native';
-
-import MapView from 'react-native-maps';
-import carImage from './assets/car.png';
-
-export default class NavigationMap extends Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      prevPos: null,
+import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
       curPos: { latitude: 37.420814, longitude: -122.081949 },
       curAng: 45,
       latitudeDelta: 0.0922,
       longitudeDelta: 0.0421,
     };
-    this.changePosition = this.changePosition.bind(this);
-    this.getRotation = this.getRotation.bind(this);
-    this.updateMap = this.updateMap.bind(this);
-  }
 
   changePosition(latOffset, lonOffset) {
     const latitude = this.state.curPos.latitude + latOffset;
     const longitude = this.state.curPos.longitude + lonOffset;
-    this.setState({ prevPos: this.state.curPos, curPos: { latitude, longitude } });
+    this.setState({
+      prevPos: this.state.curPos,
+      curPos: { latitude, longitude },
+    });
     this.updateMap();
   }
 
   getRotation(prevPos, curPos) {
-    if (!prevPos) return 0;
+    if (!prevPos) {
+      return 0;
+    }
     const xDiff = curPos.latitude - prevPos.latitude;
     const yDiff = curPos.longitude - prevPos.longitude;
-    return (Math.atan2(yDiff, xDiff) * 180.0) / Math.PI;
-  }
-
-  updateMap() {
-    const { curPos, prevPos, curAng } = this.state;
-    const curRot = this.getRotation(prevPos, curPos);
-    this.map.animateCamera({ heading: curRot, center: curPos, pitch: curAng });
-  }
+    this.setState({
+      prevPos: this.state.curPos,
+      curPos: { latitude, longitude },
+    });
 
   render() {
     return (
       <View style={styles.flex}>
-        <MapView
-          ref={(el) => (this.map = el)}
-          style={styles.flex}
-          minZoomLevel={15}
-          initialRegion={{
-            ...this.state.curPos,
-            latitudeDelta: this.state.latitudeDelta,
+    if (!prevPos) {
+      return 0;
+    }
             longitudeDelta: this.state.longitudeDelta,
           }}
         >
@@ -71,11 +49,7 @@ export default class NavigationMap extends Component {
             onPress={() => this.changePosition(0.0001, 0)}
           >
             <Text>+ Lat</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.button, styles.down]}
-            onPress={() => this.changePosition(-0.0001, 0)}
-          >
+          ref={el => (this.map = el)}
             <Text>- Lat</Text>
           </TouchableOpacity>
         </View>
